@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="500" Width="450">
     <Grid>
-        
+        <Button Content="Test A" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="ButtonA_Click"/>
+        <Button Content="Test B" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="ButtonB_Click"/>
+        <Button Content="Test C" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="ButtonC_Click"/>
+        <Button Content="Test D" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="ButtonD_Click"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="90,7,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300" Name="TextBoxA" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="90,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300" Name="TextBoxB" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="90,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300" Name="TextBoxC" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="90,91,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300" Name="TextBoxD" />
+        <WebBrowser HorizontalAlignment="Left" Height="340" Margin="10,119,0,0" VerticalAlignment="Top" Width="380" Name="WebBrowser1"/>
+
     </Grid>
 </Window>
