@@ -9,6 +9,8 @@ and providing an interesting story.
 
 ## Changelog
 
+- introduced first classes for observable map url generation
+- introduced facade classes for the route request
 - using the "nearest" service to not have random locations off road
 - added some first tests to get a random route
 - added a few basic classes
