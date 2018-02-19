@@ -15,8 +15,11 @@ using System.Windows.Shapes;
 using Backend;
 using Backend.PointGeneration;
 using Osrm.Client;
+using Osrm.Client.Base;
 using Osrm.Client.Models;
-using Osrm.Client.v5;
+using Osrm.Client.Models.Requests;
+using Osrm.Client.Models.Responses;
+
 
 namespace Frontend
 {
@@ -32,17 +35,24 @@ namespace Frontend
 
         private void ButtonA_Click(object sender, RoutedEventArgs e)
         {
+            Osrm5x osrm = new Osrm5x("http://router.project-osrm.org/");
+
             OnCircleRandomPointGenerator generator = new OnCircleRandomPointGenerator()
             {
                 MetricCircumFerence = 5000.0,
                 CircleDirection = 0,
-                HomePoint = new GeoCoordinate(52.454802, 5.972339),
+                HomePoint = new GeoCoordinate(50.116883, 8.660157),
                 NumberOfPoints = 10
             };
 
             List<GeoCoordinate> points = generator.GeneratePoints();
 
-
+            List<GeoCoordinate> cleanedPoints = new List<GeoCoordinate>();
+            foreach (GeoCoordinate geoCoordinate in points)
+            {
+                NearestResponse nearestResponse = osrm.Nearest(new Location[] { geoCoordinate.ToLocation() });
+                cleanedPoints.Add(new GeoCoordinate(nearestResponse.Waypoints[0].Location.Latitude, nearestResponse.Waypoints[0].Location.Longitude));
+            }
 
 
             LinkGenerator linkgen = new LinkGenerator()
@@ -54,6 +64,7 @@ namespace Frontend
 
 
             TextBoxA.Text = linkgen.GenerateFullLink(points);
+            TextBoxB.Text = linkgen.GenerateFullLink(cleanedPoints);
             // WebBrowser1.Navigate(linkgen.GenerateFullLink(points));
 
 
@@ -66,7 +77,7 @@ namespace Frontend
             }
 
 
-            Osrm5x osrm = new Osrm5x("http://router.project-osrm.org/");
+            
 
             RouteResponse response = osrm.Route(new RouteRequest()
             {

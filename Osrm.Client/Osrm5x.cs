@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
-using Osrm.Client.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Osrm.Client.Base;
+using Osrm.Client.Models.Requests;
+using Osrm.Client.Models.Responses;
 
-namespace Osrm.Client.v5
+namespace Osrm.Client
 {
     public class Osrm5x
     {
@@ -67,56 +66,56 @@ namespace Osrm.Client.v5
             return Send<RouteResponse>(RouteServiceName, requestParams);
         }
 
-        public Osrm.Client.Models.Responses.NearestResponse Nearest(params Location[] locs)
+        public NearestResponse Nearest(params Location[] locs)
         {
-            return Nearest(new Osrm.Client.Models.NearestRequest()
+            return Nearest(new NearestRequest()
             {
                 Coordinates = locs
             });
         }
 
-        public Osrm.Client.Models.Responses.NearestResponse Nearest(Osrm.Client.Models.NearestRequest requestParams)
+        public NearestResponse Nearest(NearestRequest requestParams)
         {
-            return Send<Osrm.Client.Models.Responses.NearestResponse>(NearestServiceName, requestParams);
+            return Send<NearestResponse>(NearestServiceName, requestParams);
         }
 
-        public Osrm.Client.Models.Responses.TableResponse Table(params Location[] locs)
+        public TableResponse Table(params Location[] locs)
         {
-            return Table(new Osrm.Client.Models.TableRequest()
+            return Table(new TableRequest()
             {
                 Coordinates = locs
             });
         }
 
-        public Osrm.Client.Models.Responses.TableResponse Table(Osrm.Client.Models.TableRequest requestParams)
+        public TableResponse Table(TableRequest requestParams)
         {
-            return Send<Osrm.Client.Models.Responses.TableResponse>(TableServiceName, requestParams);
+            return Send<TableResponse>(TableServiceName, requestParams);
         }
 
-        public Osrm.Client.Models.Responses.MatchResponse Match(params Location[] locs)
+        public MatchResponse Match(params Location[] locs)
         {
-            return Match(new Osrm.Client.Models.MatchRequest()
+            return Match(new MatchRequest()
             {
                 Coordinates = locs
             });
         }
 
-        public Osrm.Client.Models.Responses.MatchResponse Match(Osrm.Client.Models.MatchRequest requestParams)
+        public MatchResponse Match(MatchRequest requestParams)
         {
-            return Send<Osrm.Client.Models.Responses.MatchResponse>(MatchServiceName, requestParams);
+            return Send<MatchResponse>(MatchServiceName, requestParams);
         }
 
-        public Osrm.Client.Models.Responses.TripResponse Trip(params Location[] locs)
+        public TripResponse Trip(params Location[] locs)
         {
-            return Trip(new Osrm.Client.Models.TripRequest()
+            return Trip(new TripRequest()
             {
                 Coordinates = locs
             });
         }
 
-        public Osrm.Client.Models.Responses.TripResponse Trip(Osrm.Client.Models.TripRequest requestParams)
+        public TripResponse Trip(TripRequest requestParams)
         {
-            return Send<Osrm.Client.Models.Responses.TripResponse>(TripServiceName, requestParams);
+            return Send<TripResponse>(TripServiceName, requestParams);
         }
 
         protected T Send<T>(string service, BaseRequest request) //string coordinatesStr, List<Tuple<string, string>> urlParams)

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Osrm.Client.Base;
 
-namespace Osrm.Client.Models
+namespace Osrm.Client.Models.Requests
 {
     public abstract class BaseRequest
     {

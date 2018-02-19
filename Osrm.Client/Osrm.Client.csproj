@@ -45,23 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="4x\Models\HintData.cs" />
-    <Compile Include="4x\Models\LocationWithTimestamp.cs" />
-    <Compile Include="4x\Models\Matching.cs" />
-    <Compile Include="4x\Models\Location.cs" />
-    <Compile Include="4x\Models\Requests\MatchRequest.cs" />
-    <Compile Include="4x\Models\Requests\NearestRequest.cs" />
-    <Compile Include="4x\Models\Requests\TableRequest.cs" />
-    <Compile Include="4x\Models\Requests\ViarouteRequest.cs" />
-    <Compile Include="4x\Models\Responses\TripResponse.cs" />
-    <Compile Include="4x\Models\Responses\NearestResponse.cs" />
-    <Compile Include="4x\Models\Responses\OsrmBaseResponse.cs" />
-    <Compile Include="4x\Models\Responses\TableResponse.cs" />
-    <Compile Include="4x\Models\Responses\MatchResponse.cs" />
-    <Compile Include="4x\Models\Responses\ViarouteResponse.cs" />
-    <Compile Include="4x\Models\RouteInstruction.cs" />
-    <Compile Include="4x\Models\RouteSummary.cs" />
-    <Compile Include="4x\Models\Trip.cs" />
+    <Compile Include="Base\HintData.cs" />
+    <Compile Include="Base\Location.cs" />
+    <Compile Include="Base\LocationWithTimestamp.cs" />
+    <Compile Include="Base\Matching.cs" />
+    <Compile Include="Base\RouteInstruction.cs" />
+    <Compile Include="Base\RouteSummary.cs" />
     <Compile Include="Models\Bearing.cs" />
     <Compile Include="Models\Leg.cs" />
     <Compile Include="Models\Requests\TripRequest.cs" />
@@ -81,7 +70,6 @@
     <Compile Include="Models\RouteStep.cs" />
     <Compile Include="Models\Waypoint.cs" />
     <Compile Include="Osrm5x.cs" />
-    <Compile Include="4x\OsrmClient.cs" />
     <Compile Include="OsrmCode.cs" />
     <Compile Include="OsrmRequestBuilder.cs" />
     <Compile Include="OsrmPolylineConverter.cs" />
@@ -90,6 +78,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
