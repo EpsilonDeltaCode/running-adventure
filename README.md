@@ -7,5 +7,14 @@ navigating you along the different destinations
 and providing an interesting story.
 
 
-#    Using a modified Osrm.Client from narfunikita       #
-#    from https://github.com/narfunikita/Osrm.Client     #
+## Changelog
+
+- using the "nearest" service to not have random locations off road
+- added some first tests to get a random route
+- added a few basic classes
+- Included the forked Osrm.Client into this project
+
+
+
+### Using a modified(forked) Osrm.Client, originally from narfunikita from https://github.com/narfunikita/Osrm.Client 
+### @narfunikita: thank you!
