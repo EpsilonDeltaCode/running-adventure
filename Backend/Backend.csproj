@@ -64,11 +64,10 @@
     <Compile Include="RouteImage\ProjectOsrmUrlGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Osrm.Client\Osrm.Client.csproj">
+    <ProjectReference Include="..\..\Osrm.Client\Src\Osrm.Client\Osrm.Client.csproj">
       <Project>{a015cae3-5fea-4f88-935e-135e6d6a48c2}</Project>
       <Name>Osrm.Client</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

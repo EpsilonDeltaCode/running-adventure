@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TestArea\TestFunctions1.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,13 +95,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Osrm.Client\Src\Osrm.Client\Osrm.Client.csproj">
+      <Project>{a015cae3-5fea-4f88-935e-135e6d6a48c2}</Project>
+      <Name>Osrm.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Backend\Backend.csproj">
       <Project>{d7e4af88-e42c-4747-8750-6b9faa1c7423}</Project>
       <Name>Backend</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Osrm.Client\Osrm.Client.csproj">
-      <Project>{a015cae3-5fea-4f88-935e-135e6d6a48c2}</Project>
-      <Name>Osrm.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

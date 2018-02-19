@@ -5,6 +5,8 @@ namespace Backend.Base.RouteInfo
 {
     public class RouteInfoStep
     {
+        public List<RouteInfoIntersection> Intersections { get; set; }
+
         public double Distance { get; set; }
 
         public double Duration { get; set; }

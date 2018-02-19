@@ -42,8 +42,6 @@ namespace Backend.Base
                 RequestSuccessful = true;
                 RequestedResponse = OsrmConverter.ConvertRouteResponseToRouteInfoResponse(response);
             }
-
-
         }
 
         private RouteResponse TryRequestRouteResponse()

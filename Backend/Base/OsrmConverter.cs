@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Backend.Base.RouteInfo;
 using Osrm.Client.Base;
@@ -83,6 +84,7 @@ namespace Backend.Base
         {
             RouteInfoRoute infoRoute = new RouteInfoRoute
             {
+                Distance = route.Distance,
                 Duration = route.Duration,
                 Confidence = route.Confidence,
                 Legs = new List<RouteInfoLeg>(),
@@ -118,6 +120,7 @@ namespace Backend.Base
         {
             RouteInfoStep infoStep = new RouteInfoStep
             {
+                Intersections = new List<RouteInfoIntersection>(),
                 Distance = step.Distance,
                 Duration = step.Duration,
                 Mode = step.Mode,
@@ -125,7 +128,10 @@ namespace Backend.Base
                 Geometry = ConvertLocationsToGeocoordinates(step.Geometry.ToList()),
                 Maneuver = ConvertRouteInfoManeuverFromManeuver(step.Maneuver)
             };
-
+            foreach (StepIntersection stepIntersection in step.Intersections)
+            {
+                infoStep.Intersections.Add(AddInfoIntersectionFromIntersection(stepIntersection));
+            }
             return infoStep;
         }
 
@@ -142,6 +148,20 @@ namespace Backend.Base
             };
 
             return infoManeuver;
+        }
+
+        private static RouteInfoIntersection AddInfoIntersectionFromIntersection(StepIntersection stepIntersection)
+        {
+            RouteInfoIntersection infoIntersection = new RouteInfoIntersection()
+            {
+                OutAngle = stepIntersection.OutAngle,
+                InAngle = stepIntersection.InAngle,
+                Entries = (bool[]) stepIntersection.Entries.Clone(),
+                Bearings = (int[])stepIntersection.Bearings.Clone(),
+                Coordinate = ConvertLocationToGeoCoordinate(stepIntersection.Location)
+            };
+
+            return infoIntersection;
         }
     }
 }

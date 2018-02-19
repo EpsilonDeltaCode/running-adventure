@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Fronte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{D7E4AF88-E42C-4747-8750-6B9FAA1C7423}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osrm.Client", "Osrm.Client\Osrm.Client.csproj", "{A015CAE3-5FEA-4F88-935E-135E6D6A48C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osrm.Client", "..\Osrm.Client\Src\Osrm.Client\Osrm.Client.csproj", "{A015CAE3-5FEA-4F88-935E-135E6D6A48C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
