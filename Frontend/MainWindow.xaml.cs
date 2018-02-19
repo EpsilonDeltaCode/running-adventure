@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Backend;
 using Backend.PointGeneration;
+using Backend.RouteImage;
 using Osrm.Client;
 using Osrm.Client.Base;
 using Osrm.Client.Models;
@@ -35,6 +36,8 @@ namespace Frontend
 
         private void ButtonA_Click(object sender, RoutedEventArgs e)
         {
+
+            /*
             Osrm5x osrm = new Osrm5x("http://router.project-osrm.org/");
 
             OnCircleRandomPointGenerator generator = new OnCircleRandomPointGenerator()
@@ -55,7 +58,7 @@ namespace Frontend
             }
 
 
-            LinkGenerator linkgen = new LinkGenerator()
+            ProjectOsrmUrlGenerator linkgen = new ProjectOsrmUrlGenerator()
             {
                 Zoom = 8,
                 LanguageString = "en",
@@ -77,7 +80,21 @@ namespace Frontend
             }
 
 
-            
+            for (int i = 0; i < cleanedPoints.Count - 1; i++)
+            {
+                Location[] locPoints = new[] {cleanedPoints[i].ToLocation(), cleanedPoints[i+1].ToLocation() };
+
+                RouteResponse response = osrm.Route(new RouteRequest()
+                {
+                    Coordinates = locPoints,
+                    Steps = true,
+                    Alternative = false
+                });
+            }
+
+            */
+
+            /*
 
             RouteResponse response = osrm.Route(new RouteRequest()
             {
@@ -93,6 +110,9 @@ namespace Frontend
                     Console.WriteLine("Go " + (int)routeStep.Distance + "m on " + routeStep.Name + " and then " + routeStep.Maneuver.Type + " " + routeStep.Maneuver.Modifier + "!");
                 }
             }
+
+             */
+
         }
 
         private void ButtonB_Click(object sender, RoutedEventArgs e)

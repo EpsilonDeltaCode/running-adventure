@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Backend.Base;
 
-namespace Backend
+namespace Backend.OLD
 {
-    public class Route
+    public class OLDRoute
     {
         public List<GeoCoordinate> Points;
 
-        public Route(Route value) : this(new List<GeoCoordinate>(value.Points))
+        public OLDRoute(OLDRoute value) : this(new List<GeoCoordinate>(value.Points))
         {
         }
 
-        public Route(GeoCoordinate coordinate) : this(new List<GeoCoordinate>() { coordinate })
+        public OLDRoute(GeoCoordinate coordinate) : this(new List<GeoCoordinate>() { coordinate })
         {
         }
 
-        public Route(List<GeoCoordinate> points)
+        public OLDRoute(List<GeoCoordinate> points)
         {
             if (points == null) throw new ArgumentNullException(nameof(points));
             if (points.Count == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(points));

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Osrm.Client;
 using Osrm.Client.Base;
 
-namespace Backend
+namespace Backend.Base
 {
     public class GeoCoordinate
     {

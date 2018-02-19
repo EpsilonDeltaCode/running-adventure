@@ -40,17 +40,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\IRouteRequester.cs" />
+    <Compile Include="Base\OsrmConverter.cs" />
+    <Compile Include="Base\OsrmRouteRequester.cs" />
+    <Compile Include="Base\RouteInfo\RouteInfoIntersection.cs" />
+    <Compile Include="Base\RouteInfo\RouteInfoLeg.cs" />
+    <Compile Include="Base\RouteInfo\RouteInfoManeuver.cs" />
+    <Compile Include="Base\RouteInfo\RouteInfoResponse.cs" />
+    <Compile Include="Base\RouteInfo\RouteInfoRoute.cs" />
+    <Compile Include="Base\RouteInfo\RouteInfoStep.cs" />
+    <Compile Include="Base\RouteInfo\RouteInfoWaypoint.cs" />
     <Compile Include="Common.cs" />
-    <Compile Include="GeoCoordinate.cs" />
+    <Compile Include="Base\GeoCoordinate.cs" />
     <Compile Include="Geography.cs" />
-    <Compile Include="GoogleMapsLinkGenerator.cs" />
-    <Compile Include="LinkGenerator.cs" />
+    <Compile Include="RouteImage\GoogleMapsUrlGenerator.cs" />
     <Compile Include="PointGeneration\IPointsGenerator.cs" />
     <Compile Include="PointGeneration\OnCircleRandomPointGenerator.cs" />
     <Compile Include="PointGeneration\SpecialRandomPointsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Route.cs" />
-    <Compile Include="RouteGenerator.cs" />
+    <Compile Include="OLD\OLDRoute.cs" />
+    <Compile Include="OLD\OLDRouteGenerator.cs" />
+    <Compile Include="RouteImage\IObservableUrlGenerator.cs" />
+    <Compile Include="RouteImage\ProjectOsrmUrlGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Osrm.Client\Osrm.Client.csproj">
@@ -58,5 +69,6 @@
       <Name>Osrm.Client</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

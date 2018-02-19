@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Backend.Base;
 
-namespace Backend
+namespace Backend.OLD
 {
-    public class RouteGenerator
+    public class OLDRouteGenerator
     {
         public GeoCoordinate StartPoint;
         public List<GeoCoordinate> Points;
 
-        public RouteGenerator(GeoCoordinate startPoint, List<GeoCoordinate> points)
+        public OLDRouteGenerator(GeoCoordinate startPoint, List<GeoCoordinate> points)
         {
             if (startPoint == null) throw new ArgumentNullException(nameof(startPoint));
             if (points == null) throw new ArgumentNullException(nameof(points));
@@ -20,22 +19,22 @@ namespace Backend
             Points = points;
         }
 
-        public Route GenerateOptimizedRouteWithStartEqualsEnd()
+        public OLDRoute GenerateOptimizedRouteWithStartEqualsEnd()
         {
-            List<Route> allPossibleRoutes = new List<Route>();
-            AddRoutesIfPossible(allPossibleRoutes, Points, new Route(StartPoint));
+            List<OLDRoute> allPossibleRoutes = new List<OLDRoute>();
+            AddRoutesIfPossible(allPossibleRoutes, Points, new OLDRoute(StartPoint));
 
             Console.WriteLine("Number of Possible Routes:" + allPossibleRoutes.Count);
 
-            foreach (Route route in allPossibleRoutes)
+            foreach (OLDRoute route in allPossibleRoutes)
             {
                 route.AddPoint(StartPoint);
             }
 
             int bestDistance = allPossibleRoutes[0].TotalMetricLength;
-            Route bestRoute = allPossibleRoutes[0];
+            OLDRoute bestRoute = allPossibleRoutes[0];
 
-            foreach (Route route in allPossibleRoutes)
+            foreach (OLDRoute route in allPossibleRoutes)
             {
                 if (route.TotalMetricLength < bestDistance)
                 {
@@ -47,7 +46,7 @@ namespace Backend
             return bestRoute;
         }
 
-        private void AddRoutesIfPossible(List<Route> CollectionList, List<GeoCoordinate> restPoints, Route untilNow)
+        private void AddRoutesIfPossible(List<OLDRoute> CollectionList, List<GeoCoordinate> restPoints, OLDRoute untilNow)
         {
             if (restPoints.Count == 0)
             {
@@ -59,7 +58,7 @@ namespace Backend
                 {
                     List<GeoCoordinate> nextRestPoints = new List<GeoCoordinate>(restPoints);
                     nextRestPoints.RemoveAt(i);
-                    Route nextUntilNow = new Route(untilNow);
+                    OLDRoute nextUntilNow = new OLDRoute(untilNow);
                     nextUntilNow.AddPoint(restPoints[i]);
                     AddRoutesIfPossible(CollectionList, nextRestPoints, nextUntilNow);
                 }
