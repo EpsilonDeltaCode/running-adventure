@@ -31,6 +31,8 @@ namespace Backend.Base
 
         public RouteInfoResponse RequestedResponse { get; private set; }
 
+        public string RequestUrl { get; private set; }
+
         public bool RequestSuccessful { get; private set; }
 
         public void TryExecuteRequest()
@@ -51,12 +53,13 @@ namespace Backend.Base
 
             try
             {
-                response = osrm.Route(new RouteRequest()
+                RouteRequest request = new RouteRequest()
                 {
                     Coordinates = OsrmConverter.ConvertGeocoordinatesToLocations(Coordinates).ToArray(),
                     Steps = true,
                     Alternative = CalculateAlternativeRoutes
-                });
+                };
+                response = osrm.Route(request);
             }
             catch (Exception e)
             {

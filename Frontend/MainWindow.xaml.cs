@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Backend;
 using Backend.Base;
+using Backend.Base.RouteInfo;
 using Backend.PointGeneration;
 using Backend.RouteImage;
 using Frontend.TestArea;
@@ -36,25 +37,42 @@ namespace Frontend
             InitializeComponent();
         }
 
+        private IRouteRequester _requester;
+        private List<GeoCoordinate> _cleanedCoordinates = new List<GeoCoordinate>();
+
         private void ButtonA_Click(object sender, RoutedEventArgs e)
         {
-            TestFunctions1 tests = new TestFunctions1();
-            tests.test2();
+            _cleanedCoordinates = TestingFunctions.CalculateRandomCoordinatesAndMatchToStreetGrid();
+            if (_cleanedCoordinates != null && _cleanedCoordinates.Count != 0)
+            {
+                CheckBoxA.IsChecked = true;
+            }
+            else
+            {
+                CheckBoxA.IsChecked = false;
+            }
         }
 
         private void ButtonB_Click(object sender, RoutedEventArgs e)
         {
-
+            _requester = TestingFunctions.RequestARoute(_cleanedCoordinates);
+            CheckBoxB.IsChecked = _requester.RequestSuccessful;
         }
 
         private void ButtonC_Click(object sender, RoutedEventArgs e)
         {
-
+            string url = TestingFunctions.GetOrsmObservableUrl(_cleanedCoordinates);
+            System.Diagnostics.Process.Start(url);
+            CheckBoxC.IsChecked = true;
+            CheckBoxD.IsChecked = false;
         }
 
         private void ButtonD_Click(object sender, RoutedEventArgs e)
         {
-
+            string url = TestingFunctions.GetOrsmObservableUrlForFineCoordinates(_requester);
+            System.Diagnostics.Process.Start(url);
+            CheckBoxC.IsChecked = false;
+            CheckBoxD.IsChecked = true;
         }
     }
 }

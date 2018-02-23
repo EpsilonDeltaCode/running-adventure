@@ -4,22 +4,39 @@ using Backend.Base;
 
 namespace Backend.PointGeneration
 {
-    public static class SpecialRandomPointsGenerator
+    public class SpecialRandomCoordinatesGenerator : ICoordinatesGenerator
     {
-        public static List<GeoCoordinate> GenerateRandomSurroundingPoints(
-            int maxMetricDistance, int numberOfPoints, GeoCoordinate startPoint)
+        private readonly Random _random;
+
+        public SpecialRandomCoordinatesGenerator()
+        {
+            _random = new Random();
+        }
+
+
+        public double MetricCircumFerence { get; set; }
+
+        public double MetricRadius => MetricCircumFerence / (2 * Math.PI);
+
+        public GeoCoordinate HomeCoordinate { get; set; }
+
+        public int NumberOfCoordinates { get; set; }
+
+
+
+        public List<GeoCoordinate> GenerateRandomSurroundingPoints()
         {
             List<GeoCoordinate> points = new List<GeoCoordinate>();
             Random random = new Random();
 
             for (int i = 0; i < 100; i++) { random.Next(); }
 
-            for (int i = 0; i < numberOfPoints; i++)
+            for (int i = 0; i < NumberOfCoordinates; i++)
             {
-                double nextLatitude = startPoint.Latitude + Geography.LatitudeRadianPerMeter *
-                                      (random.Next(maxMetricDistance * 2) - maxMetricDistance);
-                double nextLongitude = startPoint.Longitude + Geography.LongitudeRadianPerMeter *
-                                      (random.Next(maxMetricDistance * 2) - maxMetricDistance);
+                double nextLatitude = HomeCoordinate.Latitude + Geography.LatitudeRadianPerMeter *
+                                      (random.Next((int)MetricRadius * 2) - (int)MetricRadius);
+                double nextLongitude = HomeCoordinate.Longitude + Geography.LongitudeRadianPerMeter *
+                                      (random.Next((int)MetricRadius * 2) -(int)MetricRadius);
 
                 points.Add(new GeoCoordinate(nextLatitude, nextLongitude));
             }
@@ -27,15 +44,14 @@ namespace Backend.PointGeneration
             return points;
         }
 
-        public static List<GeoCoordinate> GenerateRandomCirclePoints(
-            int maxMetricDistance, int numberOfPoints, GeoCoordinate startPoint)
+        public List<GeoCoordinate> GenerateRandomCirclePoints()
         {
             List<GeoCoordinate> Points = new List<GeoCoordinate>();
-            int[] XValues = new int[numberOfPoints];
-            int[] YValues = new int[numberOfPoints];
+            int[] XValues = new int[NumberOfCoordinates];
+            int[] YValues = new int[NumberOfCoordinates];
 
-            int Radius = Convert.ToInt32(maxMetricDistance / (2 * Math.PI));
-            int DegreePerPoint = 360 / numberOfPoints;
+            int Radius = Convert.ToInt32(MetricRadius / (2 * Math.PI));
+            int DegreePerPoint = 360 / NumberOfCoordinates;
 
             Random random = new Random();
 
@@ -44,7 +60,7 @@ namespace Backend.PointGeneration
 
             for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < (numberOfPoints / 4); j++)
+                for (int j = 0; j < (NumberOfCoordinates / 4); j++)
                 {
                     double DegreePointMinimum = j * DegreePerPoint;
                     double DegreePointMaximum = (j + 1) * DegreePerPoint;
@@ -78,11 +94,16 @@ namespace Backend.PointGeneration
                         XValue = XValue * (-1);
                     }
 
-                    Points.Add(GeoCoordinate.AddLatitude(GeoCoordinate.AddLongitude(startPoint, YValue), XValue));
+                    Points.Add(GeoCoordinate.AddMetricDistance(HomeCoordinate, YValue, XValue));
                 }
             }
 
             return Points;
+        }
+
+        public List<GeoCoordinate> GenerateCoordinates()
+        {
+            return GenerateRandomSurroundingPoints();
         }
     }
 }

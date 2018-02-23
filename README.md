@@ -12,6 +12,26 @@ without having to look at your phone.
 
 ----
 
+## Commit Summery (Version 1.0.0.0)
+
+- [x] a Windows WPF App project to test basic functions without the Xamarin Framework
+- [x] a simple window for testing the basic functions
+- [x] included the forked Osrm.Client into this project (2.1)
+- [x] used the Ostm.Client to request routes and nearest locations at a street
+- [x] facade classes, that the osrm response can be converted into
+- [x] generators for random coordinates
+- [x] generators for urls for different websites to display routes
+
+----
+
+## Upcoming tasks
+
+- [ ] processing route information optimized for navigation usage
+- [ ] navigation functions
+- [ ] simulation of navigation with simulated player position and movement
+
+----
+
 ## Definitions
 
 - The programming language used is C# (with the Xamarin Framework)
@@ -115,16 +135,7 @@ We have to get to the big intersection as fast as possible. Run!"
 
 ----
 
-## Change log
 
-- [x] OnCircleRandomPointGenerator is working (1.1)
-- [x] using the "nearest" service to not have random locations off road (1.2)
-- [x] introduced first classes for observable map url generation (2.1)
-- [x] introduced facade classes for the route request (2.1)
-- [x] added some first functions to get a random route (1.1)
-- [x] added a few basic classes
-- [x] Created a Windows WPF App project to test basic functions without the Xamarin Framework
-- [x] Included the forked Osrm.Client into this project (2.1)
 
 ----
 ## Other projects

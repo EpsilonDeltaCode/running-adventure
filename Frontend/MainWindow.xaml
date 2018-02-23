@@ -7,15 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="450">
     <Grid>
-        <Button Content="Test A" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="ButtonA_Click"/>
-        <Button Content="Test B" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="ButtonB_Click"/>
-        <Button Content="Test C" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="ButtonC_Click"/>
-        <Button Content="Test D" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="ButtonD_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="90,7,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300" Name="TextBoxA" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="90,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300" Name="TextBoxB" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="90,63,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300" Name="TextBoxC" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="90,91,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300" Name="TextBoxD" />
+        <Button Content="Calc. rand. coords. + match street grid" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="345" Height="23" Click="ButtonA_Click"/>
+        <Button Content="Calculate route" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="345" Height="23" Click="ButtonB_Click"/>
+        <Button Content="Display raw route" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="345" Height="23" Click="ButtonC_Click"/>
+        <Button Content="Display fine route" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="345" Height="23" Click="ButtonD_Click"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="360,10,0,0" VerticalAlignment="Top" Name="CheckBoxA"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="360,40,0,0" VerticalAlignment="Top" Name="CheckBoxB"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="360,68,0,0" VerticalAlignment="Top" Name="CheckBoxC"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="360,94,0,0" VerticalAlignment="Top" Name="CheckBoxD"/>
         <WebBrowser HorizontalAlignment="Left" Height="340" Margin="10,119,0,0" VerticalAlignment="Top" Width="380" Name="WebBrowser1"/>
+        
 
     </Grid>
 </Window>

@@ -9,6 +9,8 @@ namespace Backend.Base
 
         RouteInfoResponse RequestedResponse { get; }
 
+        string RequestUrl { get; }
+
         bool RequestSuccessful { get; }
 
         void TryExecuteRequest();

@@ -6,8 +6,8 @@ using Backend.Base;
 
 namespace Backend.PointGeneration
 {
-    public interface IPointsGenerator
+    public interface ICoordinatesGenerator
     {
-        List<GeoCoordinate> GeneratePoints();
+        List<GeoCoordinate> GenerateCoordinates();
     }
 }
