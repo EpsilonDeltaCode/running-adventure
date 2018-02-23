@@ -16,12 +16,12 @@ without having to look at your phone.
 
 ## Project Goals
 
-- General (0)
- - (0.1) running on Android devices
- - (0.2) providing audio navigation for the player, so no look at the phone is necessary during the run
- - (0.3) user-preferences to adjust total distance, difficulty, which events should be used, etc.
- - (0.4) (statistically information about the past runs)
-- Random coordinates generation (1)
+1. General
+.1 running on Android devices
+.2 (0.2) providing audio navigation for the player, so no look at the phone is necessary during the run
+.3 (0.3) user-preferences to adjust total distance, difficulty, which events should be used, etc.
+.4 (0.4) (statistically information about the past runs)
+...1 Random coordinates generation (1)
  - (1.1) creating random geographic coordinates specific distances to a "home"-coordinate
  - (1.2) matching this coordinates to the street grid of the real world (creating optimized coordinates)
 - Route Generation (2)
