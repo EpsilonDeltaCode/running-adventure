@@ -1,5 +1,7 @@
 # running-adventure
 
+----
+
 ## Introduction
 
 This app should become a companion for boring running exercises.
@@ -8,11 +10,15 @@ generated routes and fictional quests and events on this routes.
 Including a complete audio navigation so you can enjoy the run
 without having to look at your phone.
 
+----
+
 ## Definitions
 
 - The programming language used is C# (with the Xamarin Framework)
 - names and descriptions are written in English
 - code style should follow clean code in general
+
+----
 
 ## Project Goals
 
@@ -42,7 +48,7 @@ without having to look at your phone.
   - (4.1) including sound files / sound synthesizer for audio information/instructions
     - (4.1.1) (using a real persons voice for the audio)
   - (4.2) creating a "digital world" using the real street grid
-    - (4.2.1) using the random coordinates as POI places with a story in the digital world [ExampleStory1]
+    - (4.2.1) using the random coordinates as POI places with a story in the digital world **\[ExampleStory1\]**
     - (4.2.2) creating fictional reasons/quests to visit that places
     - (4.2.3) (providing the possibility to mark a "nice place" to include it in future random routes more often)
   - (4.3) creating items that can be "found" at places
@@ -70,18 +76,7 @@ without having to look at your phone.
   - (7.1) (comparing run results and statistics with other players)
   - (7.2) (define POIs in the players region in a creative-mode and share them, so other players in the same region can use them to have nicer routes)
 
-
-[ExampleStory1]
-(some random coordinate is defined as "the hospital")
-N.A.V.I.: "I have found a hospital not far from here. There is quite a lot of medicine left.
-We should go there and pick it up. But first, we have to get the key for the doors. 
-I have heard that one of the nurses left her key at her home during the big evacuation, so we have to go there first."
-
-[ExampleStory2]
-(runner is running down a longer straight street)
-(optional before the event, N.A.V.I. tells the player to slow down a bit)
-N.A.V.I.: "Hey, I have seen a group of raiders nearby. They spotted me and will be here in a matter of seconds.
-We have to get to the big intersection as fast as possible. Run!"
+----
 
 ## Story elements
 (only ideas, not elaborated)
@@ -93,7 +88,7 @@ We have to get to the big intersection as fast as possible. Run!"
   - it is very dangerous outside, so people usually try to hide / construct safe places
 - (2) "N.A.V.I." ( = navigation and valuation item ?)
   - a small drone which is the most important NPC. 
-  - It acts as intermediate between the player and the digital world. It provides the information that leads to quests and events [ExampleStory2] 
+  - It acts as intermediate between the player and the digital world. It provides the information that leads to quests and events **\[ExampleStory2\]** 
     - picks up the items when the player is at a POI
     - explores the surrounding area (background story) and then provides information for the player
     - warns the player about upcoming events
@@ -102,18 +97,43 @@ We have to get to the big intersection as fast as possible. Run!"
 - (3) people who need assistance
   - people contacting you via radio and asking for specific help (for example courier services)
 
+----
+
+**\[ExampleStory1\]**
+
+(some random coordinate is defined as "the hospital")
+N.A.V.I.: "I have found a hospital not far from here. There is quite a lot of medicine left.
+We should go there and pick it up. But first, we have to get the key for the doors. 
+I have heard that one of the nurses left her key at her home during the big evacuation, so we have to go there first."
+
+
+**\[ExampleStory2\]**
+
+(the player is running down a longer straight street)(optional before the event, N.A.V.I. tells the player to slow down a bit)
+N.A.V.I.: "Hey, I have seen a group of raiders nearby. They spotted me and will be here in a matter of seconds.
+We have to get to the big intersection as fast as possible. Run!"
+
+----
 
 ## Change log
 
-- OnCircleRandomPointGenerator is working (1.1)
-- restructured classes
-- using the "nearest" service to not have random locations off road (1.2)
-- introduced first classes for observable map url generation (2.1)
-- introduced facade classes for the route request (2.1)
-- added some first tests to get a random route (1.1)
-- added a few basic classes
-- Included the forked Osrm.Client into this project (2.1)
+- [x] OnCircleRandomPointGenerator is working (1.1)
+- [x] using the "nearest" service to not have random locations off road (1.2)
+- [x] introduced first classes for observable map url generation (2.1)
+- [x] introduced facade classes for the route request (2.1)
+- [x] added some first functions to get a random route (1.1)
+- [x] added a few basic classes
+- [x] Created a Windows WPF App project to test basic functions without the Xamarin Framework
+- [x] Included the forked Osrm.Client into this project (2.1)
 
+----
+## Other projects
+
+Using a modified(forked) Osrm.Client, originally from [narfunikita's project](https://github.com/narfunikita/Osrm.Client) 
+
+@narfunikita: thank you!
+
+----
 
 ## Contributing
 
@@ -121,5 +141,3 @@ Please contact me if you are interested in contributing to this project.
 
 
 
-#### Using a modified(forked) Osrm.Client, originally from narfunikita from https://github.com/narfunikita/Osrm.Client 
-#### @narfunikita: thank you!
