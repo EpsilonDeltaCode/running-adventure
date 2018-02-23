@@ -1,4 +1,4 @@
-# running-adventure
+# Running-Adventure
 
 ----
 
