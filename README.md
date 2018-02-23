@@ -10,6 +10,7 @@ without having to look at your phone.
 
 ## Definitions
 
+<<<<<<< HEAD
 - The programming language used is C# (with the Xamarin Framework)
 - names and descriptions are written in English
 - code style should follow clean code in general
@@ -109,6 +110,9 @@ We have to get to the big intersection as fast as possible. Run!"
 - OnCircleRandomPointGenerator is working (1.1)
 - restructured classes
 - using the "nearest" service to not have random locations off road (1.2)
+=======
+- using the "nearest" service to not have random locations off road
+>>>>>>> parent of 49c32ff... Update README.md
 - added some first tests to get a random route
 - added a few basic classes
 - Included the forked Osrm.Client into this project (2.1)
