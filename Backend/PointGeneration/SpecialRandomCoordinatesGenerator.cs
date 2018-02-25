@@ -22,11 +22,14 @@ namespace Backend.PointGeneration
 
         public int NumberOfCoordinates { get; set; }
 
-
-
-        public List<GeoCoordinate> GenerateRandomSurroundingPoints()
+        public IList<IGeoCoordinate> GenerateCoordinates()
         {
-            List<GeoCoordinate> points = new List<GeoCoordinate>();
+            return GenerateRandomSurroundingPoints();
+        }
+
+        private IList<IGeoCoordinate> GenerateRandomSurroundingPoints()
+        {
+            IList<IGeoCoordinate> points = new List<IGeoCoordinate>();
             Random random = new Random();
 
             for (int i = 0; i < 100; i++) { random.Next(); }
@@ -44,9 +47,9 @@ namespace Backend.PointGeneration
             return points;
         }
 
-        public List<GeoCoordinate> GenerateRandomCirclePoints()
+        private IList<IGeoCoordinate> GenerateRandomCirclePoints()
         {
-            List<GeoCoordinate> Points = new List<GeoCoordinate>();
+            IList<IGeoCoordinate> points = new List<IGeoCoordinate>();
             int[] XValues = new int[NumberOfCoordinates];
             int[] YValues = new int[NumberOfCoordinates];
 
@@ -94,16 +97,11 @@ namespace Backend.PointGeneration
                         XValue = XValue * (-1);
                     }
 
-                    Points.Add(GeoCoordinate.AddMetricDistance(HomeCoordinate, YValue, XValue));
+                    points.Add(GeoCoordinate.AddMetricDistance(HomeCoordinate, YValue, XValue));
                 }
             }
 
-            return Points;
-        }
-
-        public List<GeoCoordinate> GenerateCoordinates()
-        {
-            return GenerateRandomSurroundingPoints();
+            return points;
         }
     }
 }

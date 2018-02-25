@@ -8,6 +8,6 @@ namespace Backend.RouteImage
 {
     public interface IObservableUrlGenerator
     {
-        string GenerateFullUrl();
+        Uri GenerateFullUrl();
     }
 }

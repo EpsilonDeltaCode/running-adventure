@@ -3,6 +3,7 @@ using Backend.Base;
 using Backend.Base.RouteInfo;
 using Backend.PointGeneration;
 using Backend.RouteImage;
+using Backend.RouteRequest;
 using Osrm.Client;
 using Osrm.Client.Base;
 using Osrm.Client.Models.Responses;
@@ -11,7 +12,7 @@ namespace Frontend.TestArea
 {
     public static class TestingFunctions
     {
-        public static List<GeoCoordinate> CalculateRandomCoordinatesAndMatchToStreetGrid()
+        public static IList<IGeoCoordinate> CalculateRandomCoordinatesAndMatchToStreetGrid()
         {
             OnCircleRandomCoordinatesGenerator generator = new OnCircleRandomCoordinatesGenerator()
             {
@@ -22,8 +23,8 @@ namespace Frontend.TestArea
             };
 
 
-            List<GeoCoordinate> randomCoordinates = generator.GenerateCoordinates();
-            List<GeoCoordinate> cleanedCoordinates = new List<GeoCoordinate>();
+            IList<IGeoCoordinate> randomCoordinates = generator.GenerateCoordinates();
+            IList<IGeoCoordinate> cleanedCoordinates = new List<IGeoCoordinate>();
 
             Osrm5x osrm = new Osrm5x("http://router.project-osrm.org/");
 
@@ -36,7 +37,7 @@ namespace Frontend.TestArea
             return cleanedCoordinates;
         }
 
-        public static IRouteRequester RequestARoute(List<GeoCoordinate> coordinates)
+        public static IRouteRequester RequestARoute(IList<IGeoCoordinate> coordinates)
         {
             IRouteRequester requester = new OsrmRouteRequester()
             {
@@ -50,19 +51,19 @@ namespace Frontend.TestArea
 
         }
 
-        public static string GetOrsmObservableUrl(List<GeoCoordinate> coordinates)
+        public static string GetOrsmObservableUrl(IList<IGeoCoordinate> coordinates)
         {
             IObservableUrlGenerator urlGenerator = new ProjectOsrmUrlGenerator()
             {
                 Coordinates = coordinates
             };
 
-            return urlGenerator.GenerateFullUrl();
+            return urlGenerator.GenerateFullUrl().AbsoluteUri;
         }
 
         public static string GetOrsmObservableUrlForFineCoordinates(IRouteRequester requester)
         {
-            List<GeoCoordinate> fineCoordinates = new List<GeoCoordinate>();
+            IList<IGeoCoordinate> fineCoordinates = new List<IGeoCoordinate>();
             foreach (RouteInfoLeg leg in requester.RequestedResponse.Routes[0].Legs)
             {
                 foreach (RouteInfoStep step in leg.Steps)
@@ -82,7 +83,7 @@ namespace Frontend.TestArea
                 AlternativeRoutes = false
             };
 
-            return urlGenerator.GenerateFullUrl();
+            return urlGenerator.GenerateFullUrl().AbsoluteUri;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Backend.Base;
 
@@ -12,13 +14,12 @@ namespace Backend.RouteImage
 
         public ProjectOsrmUrlGenerator()
         {
-            Coordinates = new List<GeoCoordinate>();
             Zoom = 8;
             LanguageString = "en";
             AlternativeRoutes = false;
         }
 
-        public List<GeoCoordinate> Coordinates { get; set; }
+        public IList<IGeoCoordinate> Coordinates { get; set; }
 
         public int Zoom { get; set; }
 
@@ -26,6 +27,19 @@ namespace Backend.RouteImage
 
         public bool AlternativeRoutes { get; set; }
 
+        public Uri GenerateFullUrl()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(BaseLink);
+            builder.Append(GenerateZoomString());
+            builder.Append(Seperator);
+            builder.Append(AllCoordinateStrings());
+            builder.Append(Seperator);
+            builder.Append(GenerateLanguageString());
+            builder.Append(Seperator);
+            builder.Append(GenerateAlternativeRoutesString());
+            return new Uri(builder.ToString());
+        }
 
         private string GenerateZoomString() => "?z?" + Zoom;
 
@@ -33,26 +47,12 @@ namespace Backend.RouteImage
 
         private string GenerateAlternativeRoutesString() => "alt=" + (AlternativeRoutes ? "1" : "0");
 
-        private static string GenerateGeoCoordinateToString(GeoCoordinate coordinate) => "loc=" + coordinate.GetLatitudeString() + "%2C" + coordinate.GetLongitudeString() + Seperator;
+        private static string GenerateGeoCoordinateToString(IGeoCoordinate coordinate) 
+            => "loc=" + coordinate.LatitudeString() + "%2C" + coordinate.LongitudeString();
 
-
-        public string GenerateFullUrl()
+        private string AllCoordinateStrings()
         {
-            StringBuilder builder = new StringBuilder();
-            builder.Append(BaseLink + GenerateZoomString() + Seperator);
-            builder = AppendCoordinateStrings(builder);
-            builder.Append(GenerateLanguageString() + Seperator + GenerateAlternativeRoutesString());
-            return builder.ToString();
-        }
-
-        private StringBuilder AppendCoordinateStrings(StringBuilder builder)
-        {
-            foreach (GeoCoordinate geoCoordinate in Coordinates)
-            {
-                builder.Append("" + GenerateGeoCoordinateToString(geoCoordinate));
-            }
-
-            return builder;
+            return string.Join(Seperator, Coordinates.Select(GenerateGeoCoordinateToString).ToArray());
         }
     }
 }

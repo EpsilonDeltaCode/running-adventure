@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Backend.Base;
 using Backend.Base.RouteInfo;
-using Backend.PointGeneration;
 using Osrm.Client;
-using Osrm.Client.Base;
-using Osrm.Client.Models;
-using Osrm.Client.Models.Requests;
 using Osrm.Client.Models.Responses;
 
-namespace Backend.Base
+namespace Backend.RouteRequest
 {
     public class OsrmRouteRequester : IRouteRequester
     {
@@ -20,12 +15,11 @@ namespace Backend.Base
 
         public OsrmRouteRequester()
         {
-            Coordinates = new List<GeoCoordinate>();
             RequestSuccessful = false;
             RequestedResponse = null;
         }
 
-        public List<GeoCoordinate> Coordinates { get; set; }
+        public IList<IGeoCoordinate> Coordinates { get; set; }
 
         public bool CalculateAlternativeRoutes { get; set; }
 
@@ -35,15 +29,16 @@ namespace Backend.Base
 
         public bool RequestSuccessful { get; private set; }
 
-        public void TryExecuteRequest()
+        public bool TryExecuteRequest()
         {
             RouteResponse response = TryRequestRouteResponse();
 
-            if (response != null && response.Code == AcceptingStatusCode)
-            {
-                RequestSuccessful = true;
-                RequestedResponse = OsrmConverter.ConvertRouteResponseToRouteInfoResponse(response);
-            }
+            if (response == null || response.Code != AcceptingStatusCode)
+                return false;
+
+            RequestSuccessful = true;
+            RequestedResponse = OsrmConverter.ConvertRouteResponseToRouteInfoResponse(response);
+            return true;
         }
 
         private RouteResponse TryRequestRouteResponse()
@@ -53,7 +48,7 @@ namespace Backend.Base
 
             try
             {
-                RouteRequest request = new RouteRequest()
+                Osrm.Client.Models.Requests.RouteRequest request = new Osrm.Client.Models.Requests.RouteRequest()
                 {
                     Coordinates = OsrmConverter.ConvertGeocoordinatesToLocations(Coordinates).ToArray(),
                     Steps = true,
@@ -64,7 +59,8 @@ namespace Backend.Base
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                if (response != null) Console.WriteLine("Status Code of RouteRequest: " + response.Code);
+                if (response != null)
+                    Console.WriteLine("Status Code of RouteRequest: " + response.Code);
             }
 
             return response;

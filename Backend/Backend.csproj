@@ -40,9 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\IRouteRequester.cs" />
+    <Compile Include="Base\IGeoCoordinate.cs" />
+    <Compile Include="RouteRequest\IRouteRequester.cs" />
     <Compile Include="Base\OsrmConverter.cs" />
-    <Compile Include="Base\OsrmRouteRequester.cs" />
+    <Compile Include="RouteRequest\OsrmRouteRequester.cs" />
     <Compile Include="Base\RouteInfo\RouteInfoIntersection.cs" />
     <Compile Include="Base\RouteInfo\RouteInfoLeg.cs" />
     <Compile Include="Base\RouteInfo\RouteInfoManeuver.cs" />

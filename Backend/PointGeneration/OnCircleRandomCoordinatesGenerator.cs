@@ -18,16 +18,16 @@ namespace Backend.PointGeneration
 
         public double MetricCircumFerence { get; set; }
 
-        public GeoCoordinate HomeCoordinate { get; set; }
+        public IGeoCoordinate HomeCoordinate { get; set; }
 
         public int NumberOfCoordinates { get; set; }
 
         public double CircleDirection { get; set; }
 
 
-        public List<GeoCoordinate> GenerateCoordinates()
+        public IList<IGeoCoordinate> GenerateCoordinates()
         {
-            List<GeoCoordinate> ret = new List<GeoCoordinate>() { HomeCoordinate };
+            IList<IGeoCoordinate> ret = new List<IGeoCoordinate>() { HomeCoordinate };
 
             double radius = MetricCircumFerence / (2 * Math.PI);
             double interval = 360.0 / NumberOfCoordinates;
@@ -39,18 +39,20 @@ namespace Backend.PointGeneration
 
             for (int i = 0; i < (NumberOfCoordinates - 1); i++)
             {
-                int angleMin = (int)(((CircleDirection + 180) + startAngle + (i * interval)) % 360);
-                //int angleMax = (int)(((CircleDirection + 180) + startAngle + ((i + 1) * interval)) % 360);
-                int randomAngle = angleMin + _random.Next(0, (int) interval);
-
-                double metricLatitude = radius * Math.Sin(Common.DegreeToRadian(randomAngle));
-                double metricLongitude = radius * Math.Cos(Common.DegreeToRadian(randomAngle));
-
-                GeoCoordinate newPoint = GeoCoordinate.AddMetricDistance(circleCenter, metricLatitude, metricLongitude);
-                ret.Add(newPoint);
+                ret.Add(AddNewCoordinate(startAngle, i, interval, radius, circleCenter));
             }
 
             return ret;
+        }
+
+        private GeoCoordinate AddNewCoordinate(double startAngle, int i, double interval, double radius, IGeoCoordinate circleCenter)
+        {
+            int angleMin = (int) (((CircleDirection + 180) + startAngle + (i * interval)) % 360);
+            int randomAngle = angleMin + _random.Next(0, (int) interval);
+            double metricLatitude = radius * Math.Sin(Common.DegreeToRadian(randomAngle));
+            double metricLongitude = radius * Math.Cos(Common.DegreeToRadian(randomAngle));
+            GeoCoordinate newCoordinate = GeoCoordinate.AddMetricDistance(circleCenter, metricLatitude, metricLongitude);
+            return newCoordinate;
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Backend.PointGeneration
 {
     public interface ICoordinatesGenerator
     {
-        List<GeoCoordinate> GenerateCoordinates();
+        IList<IGeoCoordinate> GenerateCoordinates();
     }
 }

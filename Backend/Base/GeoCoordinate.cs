@@ -3,7 +3,7 @@ using Osrm.Client.Base;
 
 namespace Backend.Base
 {
-    public class GeoCoordinate
+    public class GeoCoordinate :IGeoCoordinate
     {
         private double _latitude;
         private double _longitude;
@@ -15,7 +15,7 @@ namespace Backend.Base
             Longitude = longitude;
         }
 
-        public GeoCoordinate(GeoCoordinate value)
+        public GeoCoordinate(IGeoCoordinate value)
         {
             Latitude = value.Latitude;
             Longitude = value.Longitude;
@@ -37,18 +37,18 @@ namespace Backend.Base
 
 
 
-        public string GetLatitudeString()
+        public string LatitudeString()
         {
             return _latitude.ToString("F6").Replace(",", ".");
         }
 
-        public string GetLongitudeString()
+        public string LongitudeString()
         {
             return _longitude.ToString("F6").Replace(",", ".");
         }
 
 
-        public static int GetMetricDistance(GeoCoordinate a, GeoCoordinate b)
+        public static int GetMetricDistance(IGeoCoordinate a, IGeoCoordinate b)
         {
             double latitudeDistance = Math.Abs(a.Latitude - b.Latitude);
             double longitudeDistance = Math.Abs(a.Longitude - b.Longitude);
@@ -60,23 +60,7 @@ namespace Backend.Base
             return metricDistance;
         }
 
-        [Obsolete("Use AddMetricDistance instead")]
-        public static GeoCoordinate AddLatitude(GeoCoordinate a, int meters)
-        {
-            GeoCoordinate ret = new GeoCoordinate(a.Latitude, a.Longitude);
-            ret.Latitude += (meters * Geography.LatitudeRadianPerMeter);
-            return ret;
-        }
-
-        [Obsolete("Use AddMetricDistance instead")]
-        public static GeoCoordinate AddLongitude(GeoCoordinate a, int meters)
-        {
-            GeoCoordinate ret = new GeoCoordinate(a.Latitude, a.Longitude);
-            ret.Longitude += (meters * Geography.LongitudeRadianPerMeter);
-            return ret;
-        }
-
-        public static GeoCoordinate AddMetricDistance(GeoCoordinate a, double additionalMetricLatitude, double additionalMetricLongitude)
+        public static GeoCoordinate AddMetricDistance(IGeoCoordinate a, double additionalMetricLatitude, double additionalMetricLongitude)
         {
             GeoCoordinate ret = new GeoCoordinate(a);
             ret.Latitude += (additionalMetricLatitude * Geography.LatitudeRadianPerMeter);

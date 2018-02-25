@@ -15,7 +15,7 @@ namespace Backend.Base.RouteInfo
 
         public double Duration { get; set; }
 
-        public List<GeoCoordinate> Geometry { get; set; }
+        public IList<GeoCoordinate> Geometry { get; set; }
 
         public List<RouteInfoLeg> Legs { get; set; }
 

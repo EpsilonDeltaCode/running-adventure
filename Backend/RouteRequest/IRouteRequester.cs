@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Backend.Base;
 using Backend.Base.RouteInfo;
 
-namespace Backend.Base
+namespace Backend.RouteRequest
 {
     public interface IRouteRequester
     {
-        List<GeoCoordinate> Coordinates { get; set; }
+        IList<IGeoCoordinate> Coordinates { get; set; }
 
         RouteInfoResponse RequestedResponse { get; }
 
@@ -13,7 +14,7 @@ namespace Backend.Base
 
         bool RequestSuccessful { get; }
 
-        void TryExecuteRequest();
+        bool TryExecuteRequest();
        
     }
 }

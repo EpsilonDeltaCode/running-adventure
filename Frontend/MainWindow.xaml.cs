@@ -17,6 +17,7 @@ using Backend.Base;
 using Backend.Base.RouteInfo;
 using Backend.PointGeneration;
 using Backend.RouteImage;
+using Backend.RouteRequest;
 using Frontend.TestArea;
 using Osrm.Client;
 using Osrm.Client.Base;
@@ -38,7 +39,7 @@ namespace Frontend
         }
 
         private IRouteRequester _requester;
-        private List<GeoCoordinate> _cleanedCoordinates = new List<GeoCoordinate>();
+        private IList<IGeoCoordinate> _cleanedCoordinates = new List<IGeoCoordinate>();
 
         private void ButtonA_Click(object sender, RoutedEventArgs e)
         {

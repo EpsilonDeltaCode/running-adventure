@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Osrm.Client.Models;
 
 namespace Backend.Base.RouteInfo
 {
     public class RouteInfoResponse
     {
-        public List<RouteInfoWaypoint> Waypoints { get; set; }
+        public RouteInfoResponse()
+        {
+        }
 
-        public List<RouteInfoRoute> Routes { get; set; }
+        public RouteInfoResponse(IEnumerable<RouteInfoWaypoint> waypoints, IEnumerable<RouteInfoRoute> routes)
+        {
+            Waypoints = waypoints.ToList();
+            Routes = routes.ToList();
+        }
+
+        public IList<RouteInfoWaypoint> Waypoints { get; set; }
+
+        public IList<RouteInfoRoute> Routes { get; set; }
     }
 }

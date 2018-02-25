@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Backend.Base.RouteInfo;
 using Osrm.Client.Base;
@@ -10,15 +9,9 @@ namespace Backend.Base
 {
     public static class OsrmConverter
     {
-        public static List<Location> ConvertGeocoordinatesToLocations(List<GeoCoordinate> coordinates)
+        public static IList<Location> ConvertGeocoordinatesToLocations(IEnumerable<IGeoCoordinate> coordinates)
         {
-            List<Location> locations = new List<Location>();
-            foreach (GeoCoordinate geoCoordinate in coordinates)
-            {
-                locations.Add(new Location(geoCoordinate.Latitude, geoCoordinate.Longitude));
-            }
-
-            return locations;
+            return coordinates.Select(gc => new Location(gc.Latitude, gc.Longitude)).ToList();
         }
 
         public static Location ConvertGeocoordinateToLocation(GeoCoordinate coordinate)
@@ -26,15 +19,9 @@ namespace Backend.Base
             return new Location(coordinate.Latitude, coordinate.Longitude);
         }
 
-        public static List<GeoCoordinate> ConvertLocationsToGeocoordinates(List<Location> locations)
+        public static IList<GeoCoordinate> ConvertLocationsToGeocoordinates(IEnumerable<Location> locations)
         {
-            List <GeoCoordinate> coordinates = new List<GeoCoordinate>();
-            foreach (Location location in locations)
-            {
-                coordinates.Add(new GeoCoordinate(location.Latitude, location.Longitude));
-            }
-
-            return coordinates;
+            return locations.Select(location => new GeoCoordinate(location.Latitude, location.Longitude)).ToList();
         }
 
         public static GeoCoordinate ConvertLocationToGeoCoordinate(Location location)
@@ -44,30 +31,17 @@ namespace Backend.Base
 
         public static RouteInfoResponse ConvertRouteResponseToRouteInfoResponse(RouteResponse response)
         {
-            RouteInfoResponse infoResponse = new RouteInfoResponse()
-            {
-                Waypoints = new List<RouteInfoWaypoint>(),
-                Routes = new List<RouteInfoRoute>()
-            };
+            var waypoints = response.Waypoints.Select(AddInfoWaypointFromWaypoint).ToList();
+            var routes = response.Routes.Select(AddInfoRouteFromRoute).ToList();
 
-            foreach (Waypoint waypoint in response.Waypoints)
-            {
-                infoResponse.Waypoints.Add(AddInfoWaypointFromWaypoint(waypoint));
-            }
-
-            foreach (Route route in response.Routes)
-            {
-                infoResponse.Routes.Add(AddInfoRouteFromRoute(route));
-            }
-
-            return infoResponse;
+            return new RouteInfoResponse(waypoints, routes);
         }
 
         
 
         private static RouteInfoWaypoint AddInfoWaypointFromWaypoint(Waypoint waypoint)
         {
-            RouteInfoWaypoint infoWaypoint = new RouteInfoWaypoint()
+            return new RouteInfoWaypoint
             {
                 Distance = waypoint.Distance,
                 Hint = waypoint.Hint,
@@ -77,50 +51,42 @@ namespace Backend.Base
                 TripsIndex = waypoint.TripsIndex,
                 WaypointIndex = waypoint.WaypointIndex
             };
-            return infoWaypoint;
         }
 
         private static RouteInfoRoute AddInfoRouteFromRoute(Route route)
         {
-            RouteInfoRoute infoRoute = new RouteInfoRoute
+            var legs = route.Legs.Select(AddInfoLegFromLeg).ToList();
+
+            return new RouteInfoRoute
             {
                 Distance = route.Distance,
                 Duration = route.Duration,
                 Confidence = route.Confidence,
-                Legs = new List<RouteInfoLeg>(),
+                Legs = legs,
                 Geometry = ConvertLocationsToGeocoordinates(route.Geometry.ToList())
             };
-
-            foreach (RouteLeg routeLeg in route.Legs)
-            {
-                infoRoute.Legs.Add(AddInfoLegFromLeg(routeLeg));
-            }
-
-            return infoRoute;
         }
 
         private static RouteInfoLeg AddInfoLegFromLeg(RouteLeg routeLeg)
         {
-            RouteInfoLeg infoLeg = new RouteInfoLeg()
+            var steps = routeLeg.Steps.Select(AddInfoStepFromStep).ToList();
+
+            return new RouteInfoLeg
             {
                 Distance = routeLeg.Distance,
                 Duration = routeLeg.Duration,
                 Summary = routeLeg.Summary,
-                Steps = new List<RouteInfoStep>()
+                Steps = steps
             };
-            foreach (RouteStep step in routeLeg.Steps)
-            {
-                infoLeg.Steps.Add(AddInfoStepFromStep(step));
-            }
-
-            return infoLeg;
         }
 
         private static RouteInfoStep AddInfoStepFromStep(RouteStep step)
         {
-            RouteInfoStep infoStep = new RouteInfoStep
+            var intersections = step.Intersections.Select(AddInfoIntersectionFromIntersection).ToList();
+
+            return new RouteInfoStep
             {
-                Intersections = new List<RouteInfoIntersection>(),
+                Intersections = intersections,
                 Distance = step.Distance,
                 Duration = step.Duration,
                 Mode = step.Mode,
@@ -128,16 +94,11 @@ namespace Backend.Base
                 Geometry = ConvertLocationsToGeocoordinates(step.Geometry.ToList()),
                 Maneuver = ConvertRouteInfoManeuverFromManeuver(step.Maneuver)
             };
-            foreach (StepIntersection stepIntersection in step.Intersections)
-            {
-                infoStep.Intersections.Add(AddInfoIntersectionFromIntersection(stepIntersection));
-            }
-            return infoStep;
         }
 
         private static RouteInfoManeuver ConvertRouteInfoManeuverFromManeuver(StepManeuver maneuver)
         {
-            RouteInfoManeuver infoManeuver = new RouteInfoManeuver()
+            return new RouteInfoManeuver
             {
                 BearingAfter = maneuver.BearingAfter,
                 BearingBefore = maneuver.BearingBefore,
@@ -146,13 +107,11 @@ namespace Backend.Base
                 Type = maneuver.Type,
                 Modifier = maneuver.Modifier
             };
-
-            return infoManeuver;
         }
 
         private static RouteInfoIntersection AddInfoIntersectionFromIntersection(StepIntersection stepIntersection)
         {
-            RouteInfoIntersection infoIntersection = new RouteInfoIntersection()
+            return new RouteInfoIntersection
             {
                 OutAngle = stepIntersection.OutAngle,
                 InAngle = stepIntersection.InAngle,
@@ -160,8 +119,6 @@ namespace Backend.Base
                 Bearings = (int[])stepIntersection.Bearings.Clone(),
                 Coordinate = ConvertLocationToGeoCoordinate(stepIntersection.Location)
             };
-
-            return infoIntersection;
         }
     }
 }
