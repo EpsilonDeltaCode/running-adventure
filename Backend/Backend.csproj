@@ -41,8 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\IGeoCoordinate.cs" />
+    <Compile Include="Base\JourneyArea\IBearing.cs" />
+    <Compile Include="Base\JourneyArea\IJourney.cs" />
+    <Compile Include="Base\JourneyArea\IJourneyMarker.cs" />
+    <Compile Include="Base\JourneyArea\IJourneyMarkerConnectionLine.cs" />
+    <Compile Include="Base\JourneyArea\IJourneyTurn.cs" />
     <Compile Include="RouteRequest\IRouteRequester.cs" />
-    <Compile Include="Base\OsrmConverter.cs" />
+    <Compile Include="RouteRequest\OsrmConverter.cs" />
     <Compile Include="RouteRequest\OsrmRouteRequester.cs" />
     <Compile Include="Base\RouteInfo\RouteInfoIntersection.cs" />
     <Compile Include="Base\RouteInfo\RouteInfoLeg.cs" />
@@ -66,6 +71,10 @@
     <ProjectReference Include="..\..\Osrm.Client\Src\Osrm.Client\Osrm.Client.csproj">
       <Project>{a015cae3-5fea-4f88-935e-135e6d6a48c2}</Project>
       <Name>Osrm.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{e805c428-ba9b-4174-aca0-dce0e28dec32}</Project>
+      <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

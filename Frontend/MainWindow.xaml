@@ -5,18 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="450">
+        Title="Running-Adventure | Test window" Height="500" Width="417">
     <Grid>
-        <Button Content="Calc. rand. coords. + match street grid" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="345" Height="23" Click="ButtonA_Click"/>
-        <Button Content="Calculate route" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="345" Height="23" Click="ButtonB_Click"/>
-        <Button Content="Display raw route" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="345" Height="23" Click="ButtonC_Click"/>
-        <Button Content="Display fine route" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="345" Height="23" Click="ButtonD_Click"/>
-        <CheckBox Content="" HorizontalAlignment="Left" Margin="360,10,0,0" VerticalAlignment="Top" Name="CheckBoxA"/>
-        <CheckBox Content="" HorizontalAlignment="Left" Margin="360,40,0,0" VerticalAlignment="Top" Name="CheckBoxB"/>
-        <CheckBox Content="" HorizontalAlignment="Left" Margin="360,68,0,0" VerticalAlignment="Top" Name="CheckBoxC"/>
-        <CheckBox Content="" HorizontalAlignment="Left" Margin="360,94,0,0" VerticalAlignment="Top" Name="CheckBoxD"/>
-        <WebBrowser HorizontalAlignment="Left" Height="340" Margin="10,119,0,0" VerticalAlignment="Top" Width="380" Name="WebBrowser1"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Start: " VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="87,9,0,0" TextWrapping="Wrap" Text="51.965920" VerticalAlignment="Top" Width="100" Name="tbLatitude1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="64,10,0,0" TextWrapping="Wrap" Text="Lat:" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="215,9,0,0" TextWrapping="Wrap" Text="7.582494" VerticalAlignment="Top" Width="100" Name="tbLongitude1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="192,10,0,0" TextWrapping="Wrap" Text="Lng:" VerticalAlignment="Top"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" Text="End: " VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="87,41,0,0" TextWrapping="Wrap" Text="51.966057" VerticalAlignment="Top" Width="100" x:Name="tbLatitude2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="64,42,0,0" TextWrapping="Wrap" Text="Lat:" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="215,41,0,0" TextWrapping="Wrap" Text="7.605566" VerticalAlignment="Top" Width="100" x:Name="tbLongitude2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="192,42,0,0" TextWrapping="Wrap" Text="Lng:" VerticalAlignment="Top"/>
+
+        <Button Content="Calculate route" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="305" Height="23" Click="ButtonA_Click"/>
+        <Button Content="Open router-website" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="305" Height="23" Click="ButtonB_Click"/>
+        <Button Content="Test 1" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" Width="305" Height="23" Click="ButtonC_Click"/>
+        <Button Content="Test 2" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="305" Height="23" Click="ButtonD_Click"/>
+        <Button Content="Test 3" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" Width="305" Height="23" Click="ButtonE_Click"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="356,10,0,0" TextWrapping="Wrap" Text="Done?" VerticalAlignment="Top"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="356,88,0,0" VerticalAlignment="Top" Name="CheckBoxA"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="356,116,0,0" VerticalAlignment="Top" Name="CheckBoxB"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="356,144,0,0" VerticalAlignment="Top" Name="CheckBoxC"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="356,172,0,0" VerticalAlignment="Top" Name="CheckBoxD"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="356,200,0,0" VerticalAlignment="Top" x:Name="CheckBoxE"/>
+
+        <WebBrowser HorizontalAlignment="Left" Height="222" Margin="10,237,0,0" VerticalAlignment="Top" Width="380" Name="WebBrowser1"/>
         
+
 
     </Grid>
 </Window>

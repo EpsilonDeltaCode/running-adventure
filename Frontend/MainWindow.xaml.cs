@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,41 +40,36 @@ namespace Frontend
         }
 
         private IRouteRequester _requester;
-        private IList<IGeoCoordinate> _cleanedCoordinates = new List<IGeoCoordinate>();
+        private IList<IGeoCoordinate> _coordinates = new List<IGeoCoordinate>();
 
         private void ButtonA_Click(object sender, RoutedEventArgs e)
         {
-            _cleanedCoordinates = TestingFunctions.CalculateRandomCoordinatesAndMatchToStreetGrid();
-            if (_cleanedCoordinates != null && _cleanedCoordinates.Count != 0)
+            _coordinates = new List<IGeoCoordinate>()
             {
-                CheckBoxA.IsChecked = true;
-            }
-            else
-            {
-                CheckBoxA.IsChecked = false;
-            }
+                new GeoCoordinate(Convert.ToDouble(tbLatitude1.Text.Replace(".", ",")), Convert.ToDouble(tbLongitude1.Text.Replace(".", ","))),
+                new GeoCoordinate(Convert.ToDouble(tbLatitude2.Text.Replace(".", ",")), Convert.ToDouble(tbLongitude2.Text.Replace(".", ",")))
+            };
+            _requester = TestingFunctions.RequestARoute(_coordinates);
+            CheckBoxA.IsChecked = _requester.RequestSuccessful;
         }
 
         private void ButtonB_Click(object sender, RoutedEventArgs e)
         {
-            _requester = TestingFunctions.RequestARoute(_cleanedCoordinates);
-            CheckBoxB.IsChecked = _requester.RequestSuccessful;
+            string url = TestingFunctions.GetOrsmObservableUrl(_coordinates);
+            CheckBoxB.IsChecked = true;
+            System.Diagnostics.Process.Start(url);
         }
 
         private void ButtonC_Click(object sender, RoutedEventArgs e)
         {
-            string url = TestingFunctions.GetOrsmObservableUrl(_cleanedCoordinates);
-            System.Diagnostics.Process.Start(url);
-            CheckBoxC.IsChecked = true;
-            CheckBoxD.IsChecked = false;
         }
 
         private void ButtonD_Click(object sender, RoutedEventArgs e)
         {
-            string url = TestingFunctions.GetOrsmObservableUrlForFineCoordinates(_requester);
-            System.Diagnostics.Process.Start(url);
-            CheckBoxC.IsChecked = false;
-            CheckBoxD.IsChecked = true;
+        }
+
+        private void ButtonE_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

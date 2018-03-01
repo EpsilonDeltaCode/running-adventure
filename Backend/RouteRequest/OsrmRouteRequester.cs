@@ -10,6 +10,7 @@ namespace Backend.RouteRequest
 {
     public class OsrmRouteRequester : IRouteRequester
     {
+        private IList<IGeoCoordinate> _coordinates;
         private const string OsrmServerBaseUrl = "http://router.project-osrm.org/";
         private const string AcceptingStatusCode = "Ok";
 
@@ -19,7 +20,18 @@ namespace Backend.RouteRequest
             RequestedResponse = null;
         }
 
-        public IList<IGeoCoordinate> Coordinates { get; set; }
+        public IList<IGeoCoordinate> Coordinates
+        {
+            get => _coordinates;
+            set
+            {
+                if (!Equals(value, _coordinates))
+                {
+                    RequestSuccessful = false;
+                }
+                _coordinates = value;
+            }
+        }
 
         public bool CalculateAlternativeRoutes { get; set; }
 
@@ -52,7 +64,8 @@ namespace Backend.RouteRequest
                 {
                     Coordinates = OsrmConverter.ConvertGeocoordinatesToLocations(Coordinates).ToArray(),
                     Steps = true,
-                    Alternative = CalculateAlternativeRoutes
+                    Alternative = CalculateAlternativeRoutes,
+                    ContinueStraight = "false"
                 };
                 response = osrm.Route(request);
             }

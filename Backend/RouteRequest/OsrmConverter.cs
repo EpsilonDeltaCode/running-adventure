@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Backend.Base;
 using Backend.Base.RouteInfo;
 using Osrm.Client.Base;
 using Osrm.Client.Models;
 using Osrm.Client.Models.Responses;
 
-namespace Backend.Base
+namespace Backend.RouteRequest
 {
     public static class OsrmConverter
     {
