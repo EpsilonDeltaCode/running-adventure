@@ -19,5 +19,30 @@ namespace Backend
             var longitudeDistance = Math.Abs(aCoordinate.Longitude - bCoordinate.Longitude) / LongitudeRadianPerMeter;
             return Math.Sqrt(Math.Pow(latitudeDistance, 2) + Math.Pow(longitudeDistance, 2));
         }
+
+        public static double CalculateDistance(IGeoCoordinate x, IGeoCoordinate y)
+        {
+            // haversine
+            int radius = 6371000;
+
+            double fi1 = DegreeToRadian(x.Latitude);
+            double fi2 = DegreeToRadian(y.Latitude);
+
+            double deltafi = DegreeToRadian(x.Latitude - y.Latitude);
+            double deltalambda = DegreeToRadian(x.Longitude - y.Longitude);
+
+            double value1 = Math.Sin(deltafi / 2) * Math.Sin(deltafi / 2) +
+                       Math.Cos(fi1) * Math.Cos(fi2) *
+                       Math.Sin(deltalambda / 2) * Math.Sin(deltalambda / 2);
+
+            double value2 = 2 * Math.Atan2(Math.Sqrt(value1), Math.Sqrt(1 - value1));
+
+            return radius * value2;
+        }
+
+        private static double DegreeToRadian(double degree)
+        {
+            return (degree * Math.PI / 180.0);
+        }
     }
 }

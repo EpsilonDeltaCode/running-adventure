@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Backend.Base;
 
-namespace Backend.PointGeneration
+namespace Backend.CoordinateGeneration
 {
     public class SpecialRandomCoordinatesGenerator : ICoordinatesGenerator
     {

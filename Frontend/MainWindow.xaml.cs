@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,8 @@ using System.Windows.Shapes;
 using Backend;
 using Backend.Base;
 using Backend.Base.RouteInfo;
-using Backend.PointGeneration;
 using Backend.RouteImage;
-using Backend.RouteRequest;
+using Backend.Services;
 using Frontend.TestArea;
 using Osrm.Client;
 using Osrm.Client.Base;
@@ -38,8 +38,6 @@ namespace Frontend
         {
             InitializeComponent();
         }
-
-        private IRouteRequester _requester;
         private IList<IGeoCoordinate> _coordinates = new List<IGeoCoordinate>();
 
         private void ButtonA_Click(object sender, RoutedEventArgs e)
@@ -49,8 +47,9 @@ namespace Frontend
                 new GeoCoordinate(Convert.ToDouble(tbLatitude1.Text.Replace(".", ",")), Convert.ToDouble(tbLongitude1.Text.Replace(".", ","))),
                 new GeoCoordinate(Convert.ToDouble(tbLatitude2.Text.Replace(".", ",")), Convert.ToDouble(tbLongitude2.Text.Replace(".", ",")))
             };
-            _requester = TestingFunctions.RequestARoute(_coordinates);
-            CheckBoxA.IsChecked = _requester.RequestSuccessful;
+            IRouteRequesterService requester = new OsrmRouteRequesterService();
+            RouteInfoResponse response = requester.TryRequestRoute(_coordinates);
+            CheckBoxA.IsChecked = requester.RequestSuccessful;
         }
 
         private void ButtonB_Click(object sender, RoutedEventArgs e)
@@ -62,6 +61,7 @@ namespace Frontend
 
         private void ButtonC_Click(object sender, RoutedEventArgs e)
         {
+            tbLatitude1.Text = Geography.CalculateDistance(_coordinates[0], _coordinates[1]).ToString(CultureInfo.InvariantCulture);
         }
 
         private void ButtonD_Click(object sender, RoutedEventArgs e)

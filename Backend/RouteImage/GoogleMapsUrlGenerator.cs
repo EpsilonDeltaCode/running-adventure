@@ -11,7 +11,7 @@ namespace Backend.RouteImage
         private const string WebsiteStartAdress = "https://www.google.de/maps/dir/";
         private const string Seperator = "/";
 
-        public IList<IGeoCoordinate> Coordinates;
+        public IList<IGeoCoordinate> Coordinates { get; set; }
 
         public GoogleMapsUrlGenerator()
         {

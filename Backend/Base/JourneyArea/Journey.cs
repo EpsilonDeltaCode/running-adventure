@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Backend.Base.JourneyArea
 {
-    public interface IJourney
+    public class Journey : IJourney
     {
-        IList<IJourneyBaseNode> MainNodes { get; }
-
-        bool isCircularJourney { get; set; }
+        public IList<IJourneyBaseNode> MainNodes { get; }
+        public bool isCircularJourney { get; set; }
     }
 }

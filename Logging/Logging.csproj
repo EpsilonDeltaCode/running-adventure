@@ -69,6 +69,7 @@
     <Compile Include="BlueLogger.xaml.cs">
       <DependentUpon>BlueLogger.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

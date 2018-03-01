@@ -1,36 +1,76 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Backend.Base;
 using Backend.Base.RouteInfo;
+using Osrm.Client;
 using Osrm.Client.Base;
 using Osrm.Client.Models;
 using Osrm.Client.Models.Responses;
 
-namespace Backend.RouteRequest
+namespace Backend.Services
 {
-    public static class OsrmConverter
+    public class OsrmRouteRequesterService : IRouteRequesterService
     {
-        public static IList<Location> ConvertGeocoordinatesToLocations(IEnumerable<IGeoCoordinate> coordinates)
+        private const string OsrmServerBaseUrl = "http://router.project-osrm.org/";
+        private const string AcceptingStatusCode = "Ok";
+
+        public bool RequestSuccessful { get; private set; }
+
+        public RouteInfoResponse TryRequestRoute(IList<IGeoCoordinate> coordinates)
+        {
+            RouteResponse response = TryRequestRouteResponse(coordinates);
+            RequestSuccessful = !(response == null || response.Code != AcceptingStatusCode);
+            return RequestSuccessful ? ConvertRouteResponseToRouteInfoResponse(response) : null;
+        }
+
+        private static RouteResponse TryRequestRouteResponse(IEnumerable<IGeoCoordinate> coordinates)
+        {
+            Osrm5x osrm = new Osrm5x(OsrmServerBaseUrl);
+            RouteResponse response = null;
+
+            try
+            {
+                Osrm.Client.Models.Requests.RouteRequest request = new Osrm.Client.Models.Requests.RouteRequest()
+                {
+                    Coordinates = ConvertGeocoordinatesToLocations(coordinates).ToArray(),
+                    Steps = true,
+                    Alternative = false,
+                    ContinueStraight = "false"
+                };
+                response = osrm.Route(request);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                if (response != null)
+                    Console.WriteLine("Status Code of RouteRequest: " + response.Code);
+            }
+
+            return response;
+        }
+
+        private static IList<Location> ConvertGeocoordinatesToLocations(IEnumerable<IGeoCoordinate> coordinates)
         {
             return coordinates.Select(gc => new Location(gc.Latitude, gc.Longitude)).ToList();
         }
 
-        public static Location ConvertGeocoordinateToLocation(GeoCoordinate coordinate)
+        private static Location ConvertGeocoordinateToLocation(GeoCoordinate coordinate)
         {
             return new Location(coordinate.Latitude, coordinate.Longitude);
         }
 
-        public static IList<GeoCoordinate> ConvertLocationsToGeocoordinates(IEnumerable<Location> locations)
+        private static IList<GeoCoordinate> ConvertLocationsToGeocoordinates(IEnumerable<Location> locations)
         {
             return locations.Select(location => new GeoCoordinate(location.Latitude, location.Longitude)).ToList();
         }
 
-        public static GeoCoordinate ConvertLocationToGeoCoordinate(Location location)
+        private static GeoCoordinate ConvertLocationToGeoCoordinate(Location location)
         {
             return new GeoCoordinate(location.Latitude, location.Longitude);
         }
 
-        public static RouteInfoResponse ConvertRouteResponseToRouteInfoResponse(RouteResponse response)
+        private static RouteInfoResponse ConvertRouteResponseToRouteInfoResponse(RouteResponse response)
         {
             var waypoints = response.Waypoints.Select(AddInfoWaypointFromWaypoint).ToList();
             var routes = response.Routes.Select(AddInfoRouteFromRoute).ToList();
@@ -38,7 +78,7 @@ namespace Backend.RouteRequest
             return new RouteInfoResponse(waypoints, routes);
         }
 
-        
+
 
         private static RouteInfoWaypoint AddInfoWaypointFromWaypoint(Waypoint waypoint)
         {
@@ -116,7 +156,7 @@ namespace Backend.RouteRequest
             {
                 OutAngle = stepIntersection.OutAngle,
                 InAngle = stepIntersection.InAngle,
-                Entries = (bool[]) stepIntersection.Entries.Clone(),
+                Entries = (bool[])stepIntersection.Entries.Clone(),
                 Bearings = (int[])stepIntersection.Bearings.Clone(),
                 Coordinate = ConvertLocationToGeoCoordinate(stepIntersection.Location)
             };

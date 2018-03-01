@@ -1,14 +1,14 @@
 ﻿namespace Backend.Base.JourneyArea
 {
-    public interface IJourneyMarker
+    public interface IJourneyBaseNode
     {
         IGeoCoordinate Position { get; set; }
 
-        JourneyMarkerType Type { get; set; }
-
         IJourneyTurn Turn { get; set; }
 
-        IJourneyMarkerConnectionLine NextLine { get; set; }
+        IJourneyConnectionLine NextLine { get; set; }
+
+        IJourneyConnectionLine PreviousLine { get; set; }
 
         IBearing BearingIn { get; set; }
 
